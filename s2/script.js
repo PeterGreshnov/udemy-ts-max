@@ -9,12 +9,21 @@ function printResult(num) {
     console.log("Result: ".concat(num));
 }
 printResult(add(1, 2));
-// S2L8 Functions as types;
+// S2L28 Functions as types;
 // That is a very generic type - Function - nothging is known about args or return type
 // let combineValues: Function;
 // This is a specific function type (no need to match parameters names):
-var combineValues;
-combineValues = add;
+var combineValues = add;
+// combineValues = add;
 // combineValues = printResult; // that throws an error;
 // combineValues = 5; // that is an Error;
 console.log(combineValues(8, 8));
+// S2L29 Function types and Callbacks;
+// here we definning the type of the callback function:
+function addAndHandle(n1, n2, callBackFunction) {
+    var result = n1 + n2;
+    callBackFunction(result);
+}
+addAndHandle(2, 5, function (num) {
+    console.log("Add And Handle result = ".concat(num));
+});
