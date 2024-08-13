@@ -11,6 +11,25 @@ function combine(input1, input2) {
     }
     return result;
 }
-console.log(combine(1, 2));
-console.log(combine("Peter", "Kate"));
-console.log(combine(true, "Kate"));
+// console.log(combine(1, 2));
+// console.log(combine("Peter", "Kate"));
+// console.log(combine(true, "Kate"));
+// S2L24 - Literal types
+function combine2(input1, input2, forceConversion) {
+    var result;
+    if ((typeof input1 === "number" && typeof input2 === "number") || forceConversion === "as-number") {
+        result = +input1 + +input2;
+    }
+    else {
+        // result = JSON.stringify(input1).toString() + JSON.stringify(input2).toString();
+        // result = JSON.stringify(input1) + JSON.stringify(input2);
+        result = input1.toString() + input2.toString();
+    }
+    // if (forceConversion === "as-number") return +result;
+    // else return result.toString();
+    return result;
+}
+console.log(combine2(1, 2, "as-number"));
+console.log(combine2("1", "2", "as-number"));
+console.log(combine2("1", "2", "as-text"));
+console.log(combine2("Peter", "Kate", "as-text"));
