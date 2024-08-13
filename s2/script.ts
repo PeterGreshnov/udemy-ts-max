@@ -16,3 +16,17 @@ if (typeof userInput === "string") {
   userName = userInput;
   console.log(userName);
 }
+
+// S2l31 Never type
+
+// never - is another type functions can return:
+
+// this function does not reaches its end - it crashes on "throw"
+// thus it DOES NOT RETURN ANYTHING EVER!
+// it does not even return "undefined";
+function generateError(message: string, code: number): never {
+  throw { message, errorCode: code };
+}
+
+const result = generateError("Some error", 405);
+console.log(result);
