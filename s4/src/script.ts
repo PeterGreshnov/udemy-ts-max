@@ -15,3 +15,37 @@ if (btn) {
     console.log("clicked !!!", event);
   });
 }
+
+// S4L52 Default Function parameters
+
+const addWithDefault = (a: number, b: number = 2) => a + b;
+
+printOutput(addWithDefault(3));
+
+// S4L52 The Spread Operator (...)
+
+const hobbies = ["sports", "cooking"];
+const activeHobbies = ["hiking"];
+
+// activeHobbies.push(hobbies); // doesn't work as expected
+// activeHobbies.push(hobbies[0], hobbies[1]); // to long
+
+activeHobbies.push(...hobbies);
+console.log(activeHobbies);
+
+const otherHobbies = ["gaming", ...hobbies];
+console.log(otherHobbies);
+
+const person = {
+  name: "peter",
+  age: 36,
+};
+
+// const personCopyWrong = person; // that would not "copy" the object, but copy the pointer;
+
+const personCopy = { ...person };
+
+person.age = 37;
+
+console.log(person);
+console.log(personCopy);
