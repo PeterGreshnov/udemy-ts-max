@@ -37,7 +37,7 @@ const otherHobbies = ["gaming", ...hobbies];
 console.log(otherHobbies);
 
 const person = {
-  name: "peter",
+  firstName: "peter",
   age: 36,
 };
 
@@ -50,7 +50,7 @@ person.age = 37;
 console.log(person);
 console.log(personCopy);
 
-// S4L53 Rest parameters
+// S4L54 Rest parameters
 
 const addWithRest = (...numbers: number[]) =>
   numbers.reduce((curRes, curValue) => {
@@ -58,3 +58,15 @@ const addWithRest = (...numbers: number[]) =>
   }, 0);
 console.log(addWithRest(1, 2));
 console.log(addWithRest(1, 2, 5, 10));
+
+// S4L55 Array & Objects Destructuring
+
+// const hobby1 = hobbies[0];
+// const hobby2 = hobbies[1];
+
+const [hobby1, hobby2, ...remainingHobbies] = activeHobbies;
+console.log(hobby1, hobby2);
+console.log(remainingHobbies);
+
+const { firstName: username, age } = person;
+console.log(username, age);
