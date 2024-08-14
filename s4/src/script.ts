@@ -49,3 +49,12 @@ person.age = 37;
 
 console.log(person);
 console.log(personCopy);
+
+// S4L53 Rest parameters
+
+const addWithRest = (...numbers: number[]) =>
+  numbers.reduce((curRes, curValue) => {
+    return curRes + curValue;
+  }, 0);
+console.log(addWithRest(1, 2));
+console.log(addWithRest(1, 2, 5, 10));
