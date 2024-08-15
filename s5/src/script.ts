@@ -2,19 +2,23 @@
 
 // S5L60 Creating First Class
 class Department {
-  public depName: string; // field of a class;
+  // private id: string;
+  // private depName: string; // field of a class;
   private employees: string[] = []; // access modifier;
 
   static company = "My Company";
 
   // methods:
-  constructor(n: string) {
-    this.depName = n;
+  constructor(
+    private id: string, // that is a shorter option for declaring & initializing class fields
+    public depName: string, // in this case "public" has to be added;
+  ) {
+    // this.depName = n;
   }
 
   describe(this: Department) {
     // this is a "safety" parameter
-    console.log(`This is a ${this.depName} deparment`);
+    console.log(`This is a ${this.depName} deparment (${this.id})`);
   }
 
   addEmployee(empl: string) {
@@ -27,7 +31,7 @@ class Department {
   }
 }
 
-const devDep = new Department("Development");
+const devDep = new Department("d1", "Development");
 
 console.log(devDep);
 
