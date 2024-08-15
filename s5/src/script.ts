@@ -7,7 +7,7 @@ class Department {
   protected employees: string[] = []; // access modifier;
 
   static company = "My Company";
-
+  static readonly YEAR = 2024;
   // methods:
   constructor(
     private readonly id: string, // that is a shorter option for declaring & initializing class fields
@@ -28,6 +28,10 @@ class Department {
   printEmplInfo() {
     console.log(this.employees.length);
     console.log(this.employees);
+  }
+
+  static createEmployee(empName: string) {
+    return { name: empName };
   }
 }
 
@@ -128,3 +132,8 @@ console.log(accDep);
 
 // S5L68 Getters & Setters
 console.log(`Most recent report: ${accDep.mostRecentReport}`);
+
+// S5L69 Static Props & Methods
+const emp1 = Department.createEmployee("peter");
+console.log(emp1);
+console.log(Department.YEAR);
