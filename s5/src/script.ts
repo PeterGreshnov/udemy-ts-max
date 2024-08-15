@@ -1,7 +1,7 @@
 // S5L59 Classes
 
 // S5L60 Creating First Class
-class Department {
+abstract class Department {
   // private readonly id: string;
   // private depName: string; // field of a class;
   protected employees: string[] = []; // access modifier;
@@ -10,16 +10,13 @@ class Department {
   static readonly YEAR = 2024;
   // methods:
   constructor(
-    private readonly id: string, // that is a shorter option for declaring & initializing class fields
+    protected readonly id: string, // that is a shorter option for declaring & initializing class fields
     public depName: string, // in this case "public" has to be added;
   ) {
     // this.depName = n;
   }
 
-  describe(this: Department) {
-    // this is a "safety" parameter
-    console.log(`This is a ${this.depName} deparment (${this.id})`);
-  }
+  abstract describe(this: Department): void;
 
   addEmployee(empl: string) {
     this.employees.push(empl);
@@ -35,24 +32,24 @@ class Department {
   }
 }
 
-const devDep = new Department("d1", "Development");
+// const devDep = new Department("d1", "Development");
 
-console.log(devDep);
+// console.log(devDep);
 
-// S5L61 Compiling to JS
+// // S5L61 Compiling to JS
 
-// S5L62 Constructor Functions and the "this" keyword
+// // S5L62 Constructor Functions and the "this" keyword
 
-devDep.describe();
+// devDep.describe();
 
-// const devDepCopy = { describe: devDep.describe, depName: "DUMMY" };
-// devDepCopy.describe();
+// // const devDepCopy = { describe: devDep.describe, depName: "DUMMY" };
+// // devDepCopy.describe();
 
-// S5L63 Private and Public access modifiers
-devDep.addEmployee("Peter");
-devDep.addEmployee("Igor");
-// devDep.employees.push("Ana"); // not allowed for "private" fields;
-devDep.printEmplInfo();
+// // S5L63 Private and Public access modifiers
+// devDep.addEmployee("Peter");
+// devDep.addEmployee("Igor");
+// // devDep.employees.push("Ana"); // not allowed for "private" fields;
+// devDep.printEmplInfo();
 
 console.log(Department.company);
 
@@ -70,6 +67,10 @@ class ITDepartment extends Department {
   ) {
     super(id, "IT Department");
     this.admins = [...admins];
+  }
+
+  describe(this: ITDepartment): void {
+    console.log(`IT Department - ID: ${this.id}`);
   }
 }
 
@@ -96,6 +97,10 @@ class AccountingDepartment extends Department {
   set mostRecentReport(value: string) {
     if (!value) return;
     this.addReport(value);
+  }
+
+  describe(this: AccountingDepartment): void {
+    console.log(`Accounting department id - ${this.id}`);
   }
 
   addEmployee(empl: string): void {
@@ -137,3 +142,5 @@ console.log(`Most recent report: ${accDep.mostRecentReport}`);
 const emp1 = Department.createEmployee("peter");
 console.log(emp1);
 console.log(Department.YEAR);
+
+// S5L70 Abstract Classes
