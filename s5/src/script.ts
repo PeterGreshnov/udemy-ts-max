@@ -79,14 +79,24 @@ console.log(itDep);
 
 class AccountingDepartment extends Department {
   private lastReport: string;
+  private static instance: AccountingDepartment;
 
-  constructor(
+  private constructor(
     id: string,
     private reports: string[],
   ) {
     super(id, "Accounting Department");
     this.reports = [...reports];
     this.lastReport = reports[0];
+  }
+
+  static getInstance() {
+    if (AccountingDepartment.instance) {
+      return this.instance;
+    } else {
+      this.instance = new AccountingDepartment("d2", []);
+      return this.instance;
+    }
   }
 
   get mostRecentReport() {
@@ -119,7 +129,10 @@ class AccountingDepartment extends Department {
   }
 }
 
-const accDep = new AccountingDepartment("d3", []);
+// const accDep = new AccountingDepartment("d3", []);
+const accDep = AccountingDepartment.getInstance();
+const accDep2 = AccountingDepartment.getInstance();
+console.log(accDep, accDep2);
 
 accDep.mostRecentReport = "report000";
 
@@ -144,3 +157,5 @@ console.log(emp1);
 console.log(Department.YEAR);
 
 // S5L70 Abstract Classes
+
+// S5L71 Singletons & Private Constructors
