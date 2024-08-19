@@ -18,9 +18,12 @@
 // user1.greet("Hi, I'm");
 
 // S5L74 Interfaces with classes
-
-interface Greetable {
+interface Named {
   readonly name: string;
+}
+
+interface Greetable extends Named {
+  // it is possible to extend interfaces;
   greet(phrase: string): void;
 }
 
@@ -41,5 +44,7 @@ const user1: Greetable = new Person("Peter");
 console.log(user1);
 
 // S5L76 Readonly Interface Properties
-user1.name = "Other name"; // that fails due to the `const user1: Greetable` "type";
+// user1.name = "Other name"; // that fails due to the `const user1: Greetable` "type";
 console.log(user1);
+
+// S5L77 Extending Interfaces - inheritance;
