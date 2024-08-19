@@ -48,3 +48,25 @@ console.log(user1);
 console.log(user1);
 
 // S5L77 Extending Interfaces - inheritance;
+
+// S5L78 Interfaces as Function Types;
+
+// regular function definition:
+type AddFn = (a: number, b: number) => number;
+
+const add: AddFn = (a: number, b: number) => {
+  return a + b;
+};
+
+console.log(add(3, 4));
+
+// Interface could be used as an alternative to custom type:
+interface AddFn2 {
+  (a: number, b: number): number;
+}
+
+const add2: AddFn2 = (n1: number, n2: number) => {
+  return n1 + n2;
+};
+
+console.log(add2(4, 4));
