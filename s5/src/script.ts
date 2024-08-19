@@ -20,7 +20,7 @@
 // S5L74 Interfaces with classes
 
 interface Greetable {
-  name: string;
+  readonly name: string;
   greet(phrase: string): void;
 }
 
@@ -37,5 +37,9 @@ class Person implements Greetable {
   }
 }
 
-const user1 = new Person("Peter");
+const user1: Greetable = new Person("Peter");
+console.log(user1);
+
+// S5L76 Readonly Interface Properties
+user1.name = "Other name"; // that fails due to the `const user1: Greetable` "type";
 console.log(user1);
