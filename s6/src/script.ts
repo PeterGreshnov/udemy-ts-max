@@ -225,3 +225,17 @@ console.log(fetchedUserData.job && fetchedUserData.job.title);
 
 // TS way of hanling - optional chaining:
 console.log(fetchedUserData?.job?.title);
+
+// S6L91 Nullish Coalescing
+
+// some value might be null OR undefined OR valid value, for example:
+
+const userInput = 0; // fetching from DOM for example;
+console.log(`userinput = ${userInput}`);
+
+const storedData = userInput || "DEFAULT"; // replaces ALL nullish values with DEFAULT
+console.log(`short circut value: ${storedData}`);
+
+// It is possible to replace ONLY when null OR undefined:
+const data2 = userInput ?? "NULL or Undefined";
+console.log(`nullish coalescing value: ${data2}`);
