@@ -186,3 +186,23 @@ const errorBag: ErrorContainer = {
 };
 
 console.log(errorBag);
+
+// S6L89 Function overloads
+
+// reworking the "add" function from above:
+function newAdd(a: number, b: string): string;
+function newAdd(a: string, b: number): string;
+function newAdd(a: string, b: string): string;
+function newAdd(a: number, b: number): number;
+function newAdd(a: Combinable, b: Combinable) {
+  if (typeof a === "string" || typeof b === "string") {
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
+
+const res = newAdd(1, 2);
+console.log(res.toPrecision(3));
+
+const fullName = newAdd("Peter", " Greshnov");
+console.log(fullName.toUpperCase());
