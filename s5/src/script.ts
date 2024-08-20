@@ -75,3 +75,5 @@ const add2: AddFn2 = (n1: number, n2: number) => {
 console.log(add2(4, 4));
 
 // S5L79 Optional Parameters and Propetries
+
+// S5L80 Compiling Interfaces to JS
