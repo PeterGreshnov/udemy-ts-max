@@ -206,3 +206,22 @@ console.log(res.toPrecision(3));
 
 const fullName = newAdd("Peter", " Greshnov");
 console.log(fullName.toUpperCase());
+
+// S6L90 Optional Chaining
+
+const fetchedUserData = {
+  id: "u1",
+  name: "Peter",
+  job: {
+    title: "CEO",
+    description: "My Company",
+  },
+};
+
+console.log(fetchedUserData.job.description);
+
+// if "job" might not exist - vanilla JS way of getting around is:
+console.log(fetchedUserData.job && fetchedUserData.job.title);
+
+// TS way of hanling - optional chaining:
+console.log(fetchedUserData?.job?.title);
