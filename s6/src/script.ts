@@ -100,3 +100,53 @@ function useVehicle(vehicle: Vehicle) {
 
 useVehicle(v1);
 useVehicle(v2);
+
+// S56L86 Discriminated Union
+
+interface Bird {
+  type: "bird";
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  // this can work but is cumbersome when having multiple new types added:
+  // if ("flyingSpeed" in animal) {
+  //   console.log(`Moving with speed: ${animal.flyingSpeed}`);
+  // }
+
+  let speed;
+  switch (animal.type) {
+    case "bird":
+      console.log(`Flying with speed: ${animal.flyingSpeed}`);
+      speed = animal.flyingSpeed;
+      break;
+    case "horse":
+      speed = animal.runningSpeed;
+      console.log(`Running with speed: ${animal.runningSpeed}`);
+      break;
+    default:
+      console.log("Unknown animal type");
+      break;
+  }
+  console.log(`___ moving with speed: ${speed}`);
+}
+
+const anim1: Bird = {
+  type: "bird",
+  flyingSpeed: 30,
+};
+
+const anim2: Horse = {
+  type: "horse",
+  runningSpeed: 40,
+};
+
+moveAnimal(anim1);
+moveAnimal(anim2);
