@@ -1,4 +1,4 @@
-// S56L84 Intersection types
+// S6L84 Intersection types
 
 type Admin = {
   name: string;
@@ -36,7 +36,7 @@ type Universal = Combinable & Numeric; // here in case of union types - it works
 const uni: Universal = 10; // ok
 console.log(uni);
 
-// S56L85 Type guards
+// S6L85 Type guards
 
 function add(a: Combinable, b: Combinable) {
   //1. type-guard using "typeof":
@@ -101,7 +101,7 @@ function useVehicle(vehicle: Vehicle) {
 useVehicle(v1);
 useVehicle(v2);
 
-// S56L86 Discriminated Union
+// S6L86 Discriminated Union
 
 interface Bird {
   type: "bird";
@@ -151,7 +151,7 @@ const anim2: Horse = {
 moveAnimal(anim1);
 moveAnimal(anim2);
 
-// S56L87 Type Casting
+// S6L87 Type Casting
 
 const paragraph = document.querySelector("p"); // type is HTMLParagraphElement | null
 
@@ -172,3 +172,17 @@ const inpt2 = document.getElementById("user-input");
 if (inpt2) {
   (inpt2 as HTMLInputElement).value = "Another HI!";
 }
+
+// S6L88 Index Properties
+
+// Describing an interface without knowing the exact keys and the number of these keys
+interface ErrorContainer {
+  [key: string]: string;
+}
+
+const errorBag: ErrorContainer = {
+  email: "Not a vaild email",
+  username: "Must start with a character",
+};
+
+console.log(errorBag);
