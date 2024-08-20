@@ -150,3 +150,25 @@ const anim2: Horse = {
 
 moveAnimal(anim1);
 moveAnimal(anim2);
+
+// S56L87 Type Casting
+
+const paragraph = document.querySelector("p"); // type is HTMLParagraphElement | null
+
+const parOutput = document.getElementById("message-output"); // this is of general  HTMLElement | null type
+
+// Two options of typecasting
+// 1:
+// const inpt = <HTMLInputElement>document.getElementById("user-input")!; // by default is HTMLElement | null
+
+//2:
+const inpt = document.getElementById("user-input")! as HTMLInputElement; // by default is HTMLElement | null
+
+inpt.value = "Hi there!"; // Property 'value' does not exist on type 'HTMLElement' - without typecasting
+
+// Alternative to using "!" (non null\undefined):
+const inpt2 = document.getElementById("user-input");
+
+if (inpt2) {
+  (inpt2 as HTMLInputElement).value = "Another HI!";
+}
