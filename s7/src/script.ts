@@ -1,18 +1,35 @@
 // S7L94 Generics Intro
 
 // S7L95 Built-in Generics
-const names = ["Peter", "Kate"]; // array of strings - combination;
-console.log(names);
+// const names = ["Peter", "Kate"]; // array of strings - combination;
+// console.log(names);
 
-const lastNames: Array<string> = []; // generic Array type - same as "string[]";
-console.log(lastNames);
+// const lastNames: Array<string> = []; // generic Array type - same as "string[]";
+// console.log(lastNames);
 
-const promise: Promise<number> = new Promise((res, _rej) => {
-  setTimeout(() => {
-    res(10);
-  }, 2000);
-});
+// const promise: Promise<number> = new Promise((res, _rej) => {
+//   setTimeout(() => {
+//     res(10);
+//   }, 2000);
+// });
 
-promise.then(data => {
-  console.log(data);
-});
+// promise.then(data => {
+//   console.log(data);
+// });
+
+// S7L96 Generic function
+
+function merge<T extends object, U>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
+}
+
+// console.log(merge({ name: "Peter" }, { age: 36 }));
+const mergedObj = merge({ name: "Peter", hobbies: ["guitar"] }, { age: 36 });
+const mergedObj2 = merge<{ name: string; hobbies: string[] }, { age: number }>( // that is redundant
+  { name: "Peter", hobbies: ["guitar"] },
+  { age: 36 },
+);
+
+console.log(mergedObj.name); // can't access name \ age when not using generic function with <T, U>
+console.log(mergedObj);
+console.log(mergedObj2);
