@@ -47,3 +47,24 @@ function mergeWConstr<T extends object, U extends object>(objA: T, objB: U) {
 // const mergedObj4 = mergeWConstr({ name: "Peter" }, 25); // with constrain ("extends object") that doesn't work
 const mergedObj4 = mergeWConstr({ name: "Peter" }, { age: 25 });
 console.log(mergedObj4);
+
+// S7L98 Another Generic Function
+
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(el: T): [T, string] {
+  let description = "Got no value";
+  if (el.length === 1) {
+    description = `Got 1 element.`;
+  } else if (el.length > 0) {
+    description = `Got ${el.length} elements.`;
+  }
+  return [el, description];
+}
+console.log(countAndDescribe([1]));
+console.log(countAndDescribe([1, 2]));
+console.log(countAndDescribe("Hello there!"));
+console.log(countAndDescribe(["Guitar", "Cooking"]));
+// console.log(countAndDescribe(1)); // doesn't work because of the constraint
