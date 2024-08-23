@@ -14,8 +14,21 @@ function LoggerFactory(logString: string) {
   };
 }
 
+function WithTemplate(template: string, hookId: string) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  return function (constructor: new () => Person) {
+    const hookEl = document.getElementById(hookId);
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template;
+      hookEl.querySelector("h1")!.textContent = p.name;
+    }
+  };
+}
+
 // @Logger // class decorators are executed when the class is defined, not when it is instasiated;
-@LoggerFactory("LOGGGING _ PERSON")
+// @LoggerFactory("LOGGGING _ PERSON")
+@WithTemplate("<h1>MY PERSON OBJECT</h1>", "app")
 class Person {
   name = "Peter";
 
@@ -29,3 +42,5 @@ const pers = new Person();
 console.log(pers);
 
 // S8L107 Decorator Factories
+
+// S8L108 More useful Decorators
