@@ -68,3 +68,11 @@ console.log(countAndDescribe([1, 2]));
 console.log(countAndDescribe("Hello there!"));
 console.log(countAndDescribe(["Guitar", "Cooking"]));
 // console.log(countAndDescribe(1)); // doesn't work because of the constraint
+
+// S7L99 The keyof Constraint
+
+function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) {
+  return `Value: ${obj[key]}`;
+}
+
+console.log(extractAndConvert({ name: "abc" }, "name"));
