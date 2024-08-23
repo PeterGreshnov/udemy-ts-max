@@ -112,3 +112,27 @@ objStorage.addItem({ name: "Kate" });
 // ...
 objStorage.removeItem({ name: "Peter" });
 console.log(objStorage.getItems());
+
+// S7L102 Generic Utility Types
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+// Partial Utility type
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+  // return { title, description, completeUntil: date }; // that is the most straightforward
+  // let CourseGoal: CourseGoal = {}; // that produces an error (error TS2739: Type '{}' is missing the following properties from type 'CourseGoal': title, description, completeUntil)
+  const CourseGoal: Partial<CourseGoal> = {}; // that works
+  CourseGoal.title = title;
+  CourseGoal.description = description;
+  CourseGoal.completeUntil = date;
+  return CourseGoal as CourseGoal;
+}
+
+// Readonly Utility type
+const names: Readonly<string[]> = ["Peter", "Kate"];
+// names.push("Lidiia"); // error
+console.log(names);
