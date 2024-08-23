@@ -6,7 +6,16 @@ function Logger(constructor: Function) {
   console.log(constructor);
 }
 
-@Logger // class decorators are executed when the class is defined, not when it is instasiated;
+function LoggerFactory(logString: string) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  return function (constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+// @Logger // class decorators are executed when the class is defined, not when it is instasiated;
+@LoggerFactory("LOGGGING _ PERSON")
 class Person {
   name = "Peter";
 
@@ -18,3 +27,5 @@ class Person {
 const pers = new Person();
 
 console.log(pers);
+
+// S8L107 Decorator Factories
