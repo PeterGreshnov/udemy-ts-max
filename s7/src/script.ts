@@ -76,3 +76,39 @@ function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) 
 }
 
 console.log(extractAndConvert({ name: "abc" }, "name"));
+
+// S7L100 Generic Classes
+
+class DataStorage<T> {
+  // additional constraint may be applied by adding <T extends string | number | boolean>
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Peter");
+textStorage.addItem("Kate");
+textStorage.removeItem("Peter");
+console.log(textStorage.getItems());
+// textStorage.addItem(19); // that doesn't work due to type set earlier;
+
+const numberStorage = new DataStorage<number>(); // union type is also allowed;
+numberStorage.addItem(10);
+
+const objStorage = new DataStorage<object>();
+objStorage.addItem({ name: "Peter" });
+objStorage.addItem({ name: "Kate" });
+// ...
+objStorage.removeItem({ name: "Peter" });
+console.log(objStorage.getItems());
