@@ -15,15 +15,19 @@ function LoggerFactory(logString: string) {
 }
 
 function WithTemplate(template: string, hookId: string) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-  return function (constructor: new () => Person) {
-    console.log("Rendering template...");
-    const hookEl = document.getElementById(hookId);
-    const p = new constructor();
-    if (hookEl) {
-      hookEl.innerHTML = template;
-      hookEl.querySelector("h1")!.textContent = p.name;
-    }
+  console.log("TEMPLATE FACTORY!");
+  return function (originalConstructor: new () => Person) {
+    return class extends originalConstructor {
+      constructor() {
+        super();
+        console.log("Rendering template for instance...");
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector("h1")!.textContent = this.name;
+        }
+      }
+    };
   };
 }
 
@@ -101,3 +105,39 @@ class Product {
 }
 
 // S8L111 Accessor & Parameter Decorators
+
+// S8L112 When Do Decorators Execute?
+
+// they all executed when defining a class, not when creating an instance;
+const p1 = new Product("book", 19);
+const p2 = new Product("another book", 29);
+
+// S8L113 Returning and changing a Class in a Class Decorator
+
+// S8L115 Creating an autobind decorator
+
+function Autobind(_target: any, _methodName: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: true,
+    get() {
+      const boundFn = originalMethod.bind(this); // this will be the original this of the method
+      return boundFn;
+    },
+  };
+}
+
+class Printer {
+  message = "This works!";
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const printer = new Printer();
+
+const btn = document.querySelector("button")!; /*  */
+btn.addEventListener("click", printer.showMessage.bind(printer));
