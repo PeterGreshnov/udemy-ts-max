@@ -1,5 +1,38 @@
 // S9L122 Drag and drop start
 
+interface Validatable {
+  value: string | number;
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  min?: number;
+  max?: number;
+}
+
+function validate(validatableInput: Validatable) {
+  let isValid = true;
+  if (validatableInput.required) {
+    isValid = isValid && validatableInput.value.toString().trim().length !== 0;
+  }
+  if (validatableInput.minLength != null && typeof validatableInput.value === "string") {
+    isValid = isValid && validatableInput.value.length >= validatableInput.minLength;
+  }
+
+  if (validatableInput.maxLength != null && typeof validatableInput.value === "string") {
+    isValid = isValid && validatableInput.value.length <= validatableInput.maxLength;
+  }
+
+  if (validatableInput.min != null && typeof validatableInput.value === "number") {
+    isValid = isValid && validatableInput.value >= validatableInput.min;
+  }
+
+  if (validatableInput.max != null && typeof validatableInput.value === "number") {
+    isValid = isValid && validatableInput.value <= validatableInput.max;
+  }
+
+  return isValid;
+}
+
 // S9L123 DOM ELs selection & OOP rendering
 class ProjectInput {
   templateEl: HTMLTemplateElement;
@@ -33,7 +66,26 @@ class ProjectInput {
     const inputDescription = this.descriptionInputEl.value;
     const inputPeople = this.peopleInputEl.value;
 
-    if (inputTitle.trim().length === 0 || inputDescription.trim().length === 0 || inputPeople.trim().length === 0) {
+    const titleValidatable: Validatable = {
+      value: inputTitle,
+      required: true,
+    };
+
+    const descriptionValidatable: Validatable = {
+      value: inputDescription,
+      required: true,
+      minLength: 5,
+    };
+
+    const peopleValidatable: Validatable = {
+      value: +inputPeople,
+      required: true,
+      min: 2,
+      max: 5,
+    };
+
+    // if (inputTitle.trim().length === 0 || inputDescription.trim().length === 0 || inputPeople.trim().length === 0) {
+    if (!validate(titleValidatable) || !validate(descriptionValidatable) || !validate(peopleValidatable)) {
       // throw new Error("Invalid Inputs");
       alert("Invalid Input, pls try again!");
       return;
@@ -74,3 +126,5 @@ console.log(projectInput);
 // S9L124 Interacting with DOM elements
 
 // S9L126 Fetching user input
+
+// S9L127 Re-usable Validation
