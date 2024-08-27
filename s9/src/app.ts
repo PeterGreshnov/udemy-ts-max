@@ -33,6 +33,33 @@ function validate(validatableInput: Validatable) {
   return isValid;
 }
 
+class ProjectList {
+  templateEl: HTMLTemplateElement;
+  hostEl: HTMLDivElement;
+  element: HTMLElement;
+
+  constructor(private type: "active" | "finished") {
+    this.templateEl = document.getElementById("project-list")! as HTMLTemplateElement;
+    this.hostEl = document.getElementById("app")! as HTMLDivElement;
+
+    const importedNode = document.importNode(this.templateEl.content, true);
+    this.element = importedNode.firstElementChild as HTMLElement;
+    this.element.id = `${this.type}-projects`;
+    this.attach();
+    this.renderContent();
+  }
+
+  private renderContent() {
+    const listID = `${this.type}-projects-list`;
+    this.element.querySelector("ul")!.id = listID;
+    this.element.querySelector("h2")!.innerText = `${this.type.toUpperCase()}` + " PROJECTS";
+  }
+
+  private attach() {
+    this.hostEl.insertAdjacentElement("beforeend", this.element);
+  }
+}
+
 // S9L123 DOM ELs selection & OOP rendering
 class ProjectInput {
   templateEl: HTMLTemplateElement;
@@ -128,3 +155,7 @@ console.log(projectInput);
 // S9L126 Fetching user input
 
 // S9L127 Re-usable Validation
+
+// S9L128 Rendering projects list
+const activeProjectsList = new ProjectList("active");
+const finishedProjectsList = new ProjectList("finished");
