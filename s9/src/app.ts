@@ -138,7 +138,14 @@ class ProjectList {
     this.element.id = `${this.type}-projects`;
 
     projectState.addListener((projects: Project[]) => {
-      this.assignedProjects = projects;
+      const filteredProjects = projects.filter((prj, _i, _arr) => {
+        if (this.type === "active") {
+          return prj.status === ProjectStatus.Active;
+        } else {
+          return prj.status === ProjectStatus.Finished;
+        }
+      });
+      this.assignedProjects = filteredProjects;
       this.renderProjects();
     });
 
@@ -150,6 +157,7 @@ class ProjectList {
     const listEl = document.getElementById(
       `${this.type}-projects-list`,
     ) as HTMLUListElement;
+    listEl.innerHTML = "";
     for (const projItem of this.assignedProjects) {
       const listItem = document.createElement("li");
       listItem.textContent = projItem.title;
@@ -284,3 +292,5 @@ const finishedProjectsList = new ProjectList("finished");
 // S9L129 App State & Singletons
 
 // S9L130 More classes & Custom types
+
+// S9L131 Filtering project with ENUMs
