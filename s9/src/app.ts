@@ -162,6 +162,27 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
   abstract renderContent(): void;
 }
 
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+  private project: Project;
+
+  constructor(hostID: string, project: Project) {
+    super("single-project", hostID, false, project.id);
+    this.project = project;
+
+    this.configure();
+    this.renderContent();
+  }
+
+  configure(): void {}
+
+  renderContent(): void {
+    this.element.querySelector("h2")!.textContent = this.project.title;
+    this.element.querySelector("h3")!.textContent =
+      this.project.people.toString();
+    this.element.querySelector("p")!.textContent = this.project.description;
+  }
+}
+
 class ProjectList extends Component<HTMLDivElement, HTMLElement> {
   assignedProjects: Project[];
 
@@ -202,9 +223,10 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     ) as HTMLUListElement;
     listEl.innerHTML = "";
     for (const projItem of this.assignedProjects) {
-      const listItem = document.createElement("li");
-      listItem.textContent = projItem.title;
-      listEl.appendChild(listItem);
+      // const listItem = document.createElement("li");
+      // listItem.textContent = projItem.title;
+      // listEl.appendChild(listItem);
+      new ProjectItem(this.element.querySelector("ul")!.id, projItem);
     }
   }
 }
@@ -309,3 +331,7 @@ const finishedProjectsList = new ProjectList("finished");
 // S9L130 More classes & Custom types
 
 // S9L131 Filtering project with ENUMs
+
+// S9L132 Adding inheritance & generics
+
+// S9L133 Rendering project Items with a Class
