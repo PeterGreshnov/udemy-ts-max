@@ -165,6 +165,11 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
 class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
   private project: Project;
 
+  get persons() {
+    if (this.project.people === 1) return "1 person";
+    else return `${this.project.people} persons`;
+  }
+
   constructor(hostID: string, project: Project) {
     super("single-project", hostID, false, project.id);
     this.project = project;
@@ -178,7 +183,7 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
   renderContent(): void {
     this.element.querySelector("h2")!.textContent = this.project.title;
     this.element.querySelector("h3")!.textContent =
-      this.project.people.toString();
+      this.persons + " assigned.";
     this.element.querySelector("p")!.textContent = this.project.description;
   }
 }
@@ -277,7 +282,7 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
     const peopleValidatable: Validatable = {
       value: +inputPeople,
       required: true,
-      min: 2,
+      min: 1,
       max: 5,
     };
 
@@ -335,3 +340,5 @@ const finishedProjectsList = new ProjectList("finished");
 // S9L132 Adding inheritance & generics
 
 // S9L133 Rendering project Items with a Class
+
+// S9L134 Using a Getter
