@@ -81,7 +81,19 @@ class ProjectState extends State<Project> {
     // };
 
     this.projects.push(newProject);
+    this.updateListeners();
+  }
 
+  switchProjectStatus(projectId: string, newStatus: ProjectStatus) {
+    const project = this.projects.find(prj => prj.id === projectId);
+
+    if (project && project.status !== newStatus) {
+      project.status = newStatus;
+      this.updateListeners();
+    }
+  }
+
+  private updateListeners() {
     for (const listenerFn of this.listeners) {
       listenerFn(this.projects.slice());
     }
@@ -243,7 +255,12 @@ class ProjectList
 
   dropHandler(event: DragEvent): void {
     console.log("Drop Event");
-    console.log(event.dataTransfer!.getData("text/plain"));
+    const projectId = event.dataTransfer!.getData("text/plain");
+
+    projectState.switchProjectStatus(
+      projectId,
+      this.type === "active" ? ProjectStatus.Active : ProjectStatus.Finished,
+    );
     const listEl = this.element.querySelector("ul")!;
     listEl.classList.remove("droppable");
   }
@@ -378,7 +395,6 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
 }
 
 const projectInput = new ProjectInput();
-console.log(projectInput);
 
 // S9L124 Interacting with DOM elements
 
@@ -407,3 +423,5 @@ const finishedProjectsList = new ProjectList("finished");
 // S9L136 Drag Events & Current State
 
 // S9L137 Adding a droppable area
+
+// S9L138 Finishing drag n drop
