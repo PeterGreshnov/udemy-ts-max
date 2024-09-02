@@ -216,7 +216,10 @@ class ProjectItem
   }
 }
 
-class ProjectList extends Component<HTMLDivElement, HTMLElement> {
+class ProjectList
+  extends Component<HTMLDivElement, HTMLElement>
+  implements DropTarget
+{
   assignedProjects: Project[];
 
   constructor(private type: "active" | "finished") {
@@ -229,7 +232,28 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     this.renderContent();
   }
 
+  dragOverHandler(event: DragEvent): void {
+    const listEl = this.element.querySelector("ul")!;
+    listEl.classList.add("droppable");
+  }
+
+  dropHandler(event: DragEvent): void {
+    const listEl = this.element.querySelector("ul")!;
+    listEl.classList.remove("droppable");
+  }
+
+  dragLeaveHandler(event: DragEvent): void {
+    const listEl = this.element.querySelector("ul")!;
+    listEl.classList.remove("droppable");
+  }
+
   configure(): void {
+    this.element.addEventListener("dragover", this.dragOverHandler.bind(this));
+    this.element.addEventListener("drop", this.dropHandler.bind(this));
+    this.element.addEventListener(
+      "dragleave",
+      this.dragLeaveHandler.bind(this),
+    );
     projectState.addListener((projects: Project[]) => {
       const filteredProjects = projects.filter((prj, _i, _arr) => {
         if (this.type === "active") {
@@ -238,6 +262,7 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
           return prj.status === ProjectStatus.Finished;
         }
       });
+
       this.assignedProjects = filteredProjects;
       this.renderProjects();
     });
@@ -372,3 +397,5 @@ const finishedProjectsList = new ProjectList("finished");
 // S9L134 Using a Getter
 
 // S9L135 Using interfaces for Drag N Drop
+
+// S9L136 Drag Events & Current State
