@@ -194,7 +194,8 @@ class ProjectItem
   }
 
   dragStartHandler(event: DragEvent): void {
-    console.log(event);
+    event.dataTransfer!.setData("text/plain", this.project.id);
+    event.dataTransfer!.effectAllowed = "move";
   }
 
   dragEndHandler(_event: DragEvent): void {
@@ -233,11 +234,16 @@ class ProjectList
   }
 
   dragOverHandler(event: DragEvent): void {
-    const listEl = this.element.querySelector("ul")!;
-    listEl.classList.add("droppable");
+    if (event.dataTransfer && event.dataTransfer.types[0] === "text/plain") {
+      event.preventDefault();
+      const listEl = this.element.querySelector("ul")!;
+      listEl.classList.add("droppable");
+    }
   }
 
   dropHandler(event: DragEvent): void {
+    console.log("Drop Event");
+    console.log(event.dataTransfer!.getData("text/plain"));
     const listEl = this.element.querySelector("ul")!;
     listEl.classList.remove("droppable");
   }
@@ -399,3 +405,5 @@ const finishedProjectsList = new ProjectList("finished");
 // S9L135 Using interfaces for Drag N Drop
 
 // S9L136 Drag Events & Current State
+
+// S9L137 Adding a droppable area
