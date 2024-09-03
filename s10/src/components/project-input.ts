@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference */
+/// <reference path="base-component.ts" />
+/// <reference path="../util/validation.ts" />
+/// <reference path="../state/project-state.ts" />
+
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace _App {
   export // S9L123 DOM ELs selection & OOP rendering

@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference */
+/// <reference path="base-component.ts" />
+/// <reference path="../models/drag-n-drop.ts" />
+/// <reference path="../models/project.ts" />
+
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace _App {
   export class ProjectItem
